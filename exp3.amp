@@ -1,0 +1,11 @@
+%%[
+ set @SubscriberKey = _subscriberkey
+
+ IF EMPTY(@SubscriberKey) THEN
+    SET @SubscriberKey = AttributeValue("Subscriber Key")
+ ENDIF 
+
+
+]%%
+
+%%=v(@SubscriberKey)=%%

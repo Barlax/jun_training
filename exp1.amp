@@ -1,0 +1,35 @@
+%%[
+var @rows, @row, @rowCount, @region, @i, @emailAddress, @firstName, @rank
+set @SubscriberKey = "8473" /* or a literal value */
+
+
+set @rows = LookupRows("LoyaltyMembers","SubscriberKey", @SubscriberKey)
+set @rowCount = rowcount(@rows)
+
+if @rowCount > 0 then
+
+  set @row = row(@rows, 1) 
+  set @firstName = field(@row,"firstName")
+  set @emailAddress = field(@row,"emailAddress")
+
+  IF EMPTY(@firstName) THEN
+
+    set @rows2 = LookupRows("DIABLO","SubscriberKey", @SubscriberKey)
+    set @rowCount2 = rowcount(@rows2)
+
+    if @rowCount2 > 0 then
+
+      set @row2 = row(@rows2, 1) 
+      set @firstName = field(@row2,"nickname")
+
+    ENDIF
+  ENDIF
+
+ENDIF 
+]%%
+
+
+
+
+
+HI %%=v(@firstName)=%% 

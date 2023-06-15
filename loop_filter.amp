@@ -1,0 +1,32 @@
+
+%%[
+  SET @QUOTE_AMOUNT_TOTAL = '3000'
+  SET @QUOTE_AMOUNT_TOTAL = Format(@QUOTE_AMOUNT_TOTAL, "#,##0.00;-#,##0.00")
+  SET @firstname = AttributeValue("firstname")
+  SET @lastname = AttributeValue("lastname")
+  SET @email = AttributeValue("email")
+  SET @transferid = AttributeValue("transferid")
+]%%
+Hi %%=v(@firstname)=%%, email %%=v(@email)=%% <br>
+
+
+You sent $%%=v(@QUOTE_AMOUNT_TOTAL)=%% AUD to: <br>
+%%[ 
+ /* Filter based in 2 fields */
+  SET @rows = LookupRows("transferto", "transferid", @transferid, "status", "active")
+  
+  SET @rowCount = rowcount(@rows)
+  IF @rowCount > 0 THEN
+    FOR @I = 1 TO @ROWCOUNT DO
+      SET @row = Row(@rows, @i)
+      SET @firstName = field(@row, "firstname")
+      SET @status = field(@row, "status")
+
+]%%
+Name: %%=v(@firstName)=%% <br>
+
+%%[
+
+    NEXT @i
+  ENDIF
+]%%

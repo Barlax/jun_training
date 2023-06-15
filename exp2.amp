@@ -1,0 +1,23 @@
+%%[
+var @rows, @row, @rowCount, @region, @i, @emailAddress, @firstName, @rank
+  set @SubscriberKey = AttributeValue("firstName")
+  set @firstName = AttributeValue("firstName")
+  set @emailAddress = QueryParameter(STRING)("emailAddress")
+
+  IF EMPTY(@firstName) THEN
+
+    set @rows2 = LookupRows("DIABLO","SubscriberKey", @SubscriberKey)
+    set @rowCount2 = rowcount(@rows2)
+
+    IF @rowCount2 > 0 then
+
+      set @row2 = row(@rows2, 1) 
+      set @firstName = field(@row2,"nickname")
+
+    ENDIF
+  ENDIF
+
+
+]%%
+
+HI %%=v(@firstName)=%% 
