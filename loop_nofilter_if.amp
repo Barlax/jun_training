@@ -20,7 +20,7 @@ You sent $%%=v(@QUOTE_AMOUNT_TOTAL)=%% AUD to: <br>
       SET @row = Row(@rows, @i)
       SET @firstName = field(@row, "firstname")
       SET @status = field(@row, "status")
-      IF @status == 'active' THEN
+      IF Lowercase(trim(@status)) == 'active' THEN
 ]%%
 Name: %%=v(@firstName)=%% <br>
 
