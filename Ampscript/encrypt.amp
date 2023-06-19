@@ -1,0 +1,29 @@
+
+%%[
+    SET @str = "limedash"
+    SET @password = "OSF_PREFERENCE_PWD"
+    SET @salt = "OSF_SALT_KEY"
+    SET @initVector = "OSF_IV_KEY"
+    
+    SET @encAES = EncryptSymmetric(
+        @str,
+        "aes",
+        @password,
+        @null,
+        @salt,
+        @null,
+        @initVector,
+        @null
+    )
+    SET @decAES = DecryptSymmetric(
+        @encAES,
+        "aes",
+        @password,
+        @null,
+        @salt,
+        @null,
+        @initVector,
+        @null
+    )
+]%%
+%%=v(@decAES)=%%
